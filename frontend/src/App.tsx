@@ -1,16 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import AddTask from "./components/pages/AddTask";
+import Layout from "./components/pages/Layout";
+import Task from "./components/pages/Task";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-    <h1 className='bg-red-500'>Kaushal</h1>
+      <Layout />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
