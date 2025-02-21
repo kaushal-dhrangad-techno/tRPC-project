@@ -1,29 +1,24 @@
 import express from "express";
 import cors from "cors";
-import * as trpcExpress from "@trpc/server/adapters/express";
-import { router } from "./trpc";
-import { createContext } from "./context";
-import { userRouter } from "./routes/user";
 import connectDb from "./db/db";
+import { initTRPC } from "@trpc/server";
+import { z } from "zod";
+import * as trpcExpress from "@trpc/server/adapters/express";
+import { appRouter } from "./routes";
 
 const app = express();
 const port = process.env.PORT;
 
-const appRouter = router({
-  user: userRouter,
-});
-
 app.use(
   cors({
     origin: "http://localhost:3000",
-    credentials: true,
   })
 );
+
 app.use(
   "/api/trpc",
   trpcExpress.createExpressMiddleware({
     router: appRouter,
-    createContext,
   })
 );
 
