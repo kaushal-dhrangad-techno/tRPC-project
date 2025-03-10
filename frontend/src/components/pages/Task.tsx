@@ -1,7 +1,3 @@
-// import React from "react";
-// import { Button } from "../ui/button";
-// import { randomFillSync } from "crypto";
-
 // const tasks = [
 //   {
 //     _id: "1",
@@ -113,59 +109,12 @@
 // ];
 
 import { useSelector } from "react-redux";
-// const notesColors = {
-//   stickyYellow: "#FFF9C4",
-//   stickyGreen: "#C8E6C9",
-//   stickyBlue: "#BBDEFB",
-//   stickyPeach: "#FFCCBC",
-//   stickyLavender: "#E1BEE7",
-//   stickyPink: "#F8BBD0",
-//   stickyCoral: "#FFD3B6",
-//   stickyMintBlue: "#B2EBF2",
-//   stickyLime: "#E6EE9C",
-//   stickyBeige: "#F5E1DA",
-//   stickyTeal: "#A7D8DE",
-//   stickyLilac: "#D7BDE2",
-//   stickyButtercream: "#FFF4D1",
-//   stickyRose: "#F2C6DE",
-// };
-
-// const colorKeys = Object.keys(notesColors);
-// console.log(colorKeys);
-
-// const Task = () => {
-//   return (
-//     <div className="w-full  py-10 ">
-//       <div className="  w-4/5  flex items-center mx-auto justify-center ">
-//         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-2 w-full ">
-//           {tasks.map((task) => {
-//             const randomColorKey =
-//               colorKeys[Math.floor(Math.random() * colorKeys.length)];
-//             const bgColor = notesColors[randomColorKey];
-//             return (
-//               <li
-//                 style={{ backgroundColor: bgColor }}
-//                 className={`flex flex-col px-3 py-3 h-auto gap-1  justify-start ${bgColor} text-black`}
-//               >
-//                 <div className="flex flex-col gap-3">
-//                   <p className=""> title: {task.title}</p>
-//                   <p>Descripton: {task.description}</p>
-//                 </div>
-//                 <Button className="mt-auto">Delete</Button>
-//               </li>
-//             );
-//           })}
-//         </ul>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Task;
 
 import { Button } from "../ui/button";
 import useFetchAllTask from "@/trpc-hooks/useFetchAllTask";
 import useDeleteTask from "@/trpc-hooks/useDeleteTask";
+import { useState } from "react";
+import useToggleTask from "@/trpc-hooks/useToggleTask";
 
 const notesColors = [
   "#FFF9C4", // Yellow
@@ -206,6 +155,7 @@ const shuffleArrayforDeleteButton = (array: string[]) => {
 // console.log("This is random number", Math.random() - 0.5);
 
 const Task = () => {
+  const [toggle, setToggle] = useState(false);
   //For Shuffle colors
   const shuffledColors = shuffleArray(Object.values(notesColors));
   const shuffledDeleteButtonColors = shuffleArrayforDeleteButton(
@@ -213,8 +163,15 @@ const Task = () => {
   );
   const { error, isLoading } = useFetchAllTask();
 
-  const tasks = useSelector((state) => state.tasks.tasks);
-  const deleteTaskMutation = useDeleteTask()
+  const tasks = useSelector((state) => {
+    return state.tasks.tasks;
+  });
+  const deleteTaskMutation = useDeleteTask();
+  const toggleTaskMutation = useToggleTask();
+
+  const handleToggle = (task: { _id: string; completed: boolean }) => {
+    toggleTaskMutation.mutate({ _id: task._id, completed: !task.completed });
+  };
 
   if (isLoading)
     return <p className="flex justify-center items-center">Loading....</p>;
@@ -242,15 +199,25 @@ const Task = () => {
                 className="flex flex-col px-3 py-3 h-auto gap-1 justify-start text-black rounded-md"
               >
                 <div className="flex flex-col gap-3">
-                  <p className="">Title: {task.title}</p>
+                  <p
+                    className={
+                      task.completed ? "line-through text-gray-500" : ""
+                    }
+                  >
+                    Title: {task.title}
+                  </p>
                   <p>Description: {task.description}</p>
                 </div>
-                <Button className="mt-auto  bg-green-500">Completed</Button>
+                <Button
+                  onClick={() => handleToggle(task)}
+                  className="mt-auto bg-green-500"
+                >
+                  {task.completed ? "Pending" : "Completed"}
+                </Button>
                 <Button
                   style={{ backgroundColor: deleteButtonBg }}
                   className="  bg-red-500"
-                  onClick={() => deleteTaskMutation.mutate({_id: task._id})}
-                  
+                  onClick={() => deleteTaskMutation.mutate({ _id: task._id })}
                 >
                   Delete
                 </Button>

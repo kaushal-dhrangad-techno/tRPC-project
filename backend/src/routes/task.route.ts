@@ -44,7 +44,7 @@ export const todoRouter = t.router({
       try {
         // const taskId = new mongoose.Types.ObjectId(input._id);
         if (!mongoose.Types.ObjectId.isValid(input._id)) {
-          throw new Error("Invalid task id")
+          throw new Error("Invalid task id");
         }
         const deletedTask = await Task.findByIdAndDelete(input._id);
 
@@ -63,13 +63,13 @@ export const todoRouter = t.router({
       }
     }),
 
-  updateTask: t.procedure
-    .input(z.object({ _id: z.string(),  completed: z.boolean() }))
+  toggleTask: t.procedure
+    .input(z.object({ _id: z.string(), completed: z.boolean() }))
     .mutation(async ({ input }) => {
       const taskId = new mongoose.Types.ObjectId(input._id);
       const updatedTask = await Task.findByIdAndUpdate(taskId, {
         completed: input.completed,
-      });
+      }, {new: true});
 
       return {
         success: true,
