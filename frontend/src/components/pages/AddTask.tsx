@@ -17,7 +17,7 @@ const AddTask = () => {
       <Dialog>
         <DialogTrigger asChild>
           {/* <Button variant="outline">Edit Profile</Button> */}
-          <div className="bg-slate-200 mt-24 text-black w-3/4 px-5 py-2 my-5 rounded-lg flex items-center  justify-center cursor-text text-[12px] sm:text-[14px] md:text-base">
+          <div className="bg-slate-200 mt-20 text-black w-3/4 px-5 py-2 my-5 rounded-lg flex items-center  justify-center cursor-text text-[12px] sm:text-[14px] md:text-base">
             Add New Task
           </div>
         </DialogTrigger>
