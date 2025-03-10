@@ -224,7 +224,8 @@ const Task = () => {
                   <p className="">Title: {task.title}</p>
                   <p>Description: {task.description}</p>
                 </div>
-                <Button style={{backgroundColor: deleteButtonBg}} className="mt-auto  bg-red-500">Delete</Button>
+                <Button  className="mt-auto  bg-green-500">Completed</Button>
+                <Button style={{backgroundColor: deleteButtonBg}} className="  bg-red-500">Delete</Button>
               </li>
             );
           })}
