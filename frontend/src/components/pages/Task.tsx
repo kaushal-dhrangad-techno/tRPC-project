@@ -208,7 +208,7 @@ const Task = () => {
   const shuffledDeleteButtonColors = shuffleArrayforDeleteButton(Object.values(deleteButtonColors)); 
 
   return (
-    <div className="w-full py-10">
+    <div className="w-full py-10 ">
       <div className="w-4/5 flex items-center mx-auto justify-center">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
           {tasks.map((task, index) => {
