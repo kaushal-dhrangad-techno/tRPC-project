@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -10,8 +11,22 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import useAddTask from "@/trpc-hooks/useAddTask";
+import { useState } from "react";
 
 const AddTask = () => {
+  const [title, setTitle] = useState("");
+
+  const addTaskMutation = useAddTask();
+
+  const handleAddTask = () => {
+    if (!title.trim()) return;
+    console.log("Task submitted successfully", title);
+
+    addTaskMutation.mutate({ title: title, completed: false });
+    setTitle("");
+  };
+
   return (
     <div className="w-full  sm:w-3/4 md:w-1/2 mx-auto  flex justify-center items-center">
       <Dialog>
@@ -34,8 +49,10 @@ const AddTask = () => {
                 Title
               </Label>
               <Input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 id="name"
-                defaultValue="Pedro Duarte"
+                placeholder="Enter task title.."
                 className="col-span-3"
               />
             </div>
@@ -51,7 +68,11 @@ const AddTask = () => {
             </div> */}
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <DialogClose asChild>
+              <Button onClick={handleAddTask} type="submit">
+                Save changes
+              </Button>
+            </DialogClose>
           </DialogFooter>
         </DialogContent>
       </Dialog>

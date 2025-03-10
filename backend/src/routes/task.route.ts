@@ -43,6 +43,9 @@ export const todoRouter = t.router({
     .mutation(async ({ input }) => {
       try {
         // const taskId = new mongoose.Types.ObjectId(input._id);
+        if (!mongoose.Types.ObjectId.isValid(input._id)) {
+          throw new Error("Invalid task id")
+        }
         const deletedTask = await Task.findByIdAndDelete(input._id);
 
         if (!deletedTask) {
