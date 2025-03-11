@@ -116,7 +116,7 @@ import useDeleteTask from "@/trpc-hooks/useDeleteTask";
 import useToggleTask from "@/trpc-hooks/useToggleTask";
 import {  TaskProps } from "@/store/taskSlice";
 
-const notesColors = [
+export const notesColors = [
   "#FFF9C4", // Yellow
   "#C8E6C9", // Green
   "#BBDEFB", // Blue
@@ -133,7 +133,7 @@ const notesColors = [
   "#F2C6DE", // Rose
 ];
 
-const deleteButtonColors = [
+export const deleteButtonColors = [
   "#E57373", // Deep Rose - Soft but noticeable red
   "#D65A50", // Muted Brick - Earthy red with warm tones
   "#C74C43", // Warm Cranberry - Gentle but serious red
@@ -142,13 +142,13 @@ const deleteButtonColors = [
   "#913531", // Smoky Clay - Dark clay red, not too strong
 ];
 
-const randomDeleteButton =
+export const randomDeleteButton =
   deleteButtonColors[Math.floor(Math.random() * deleteButtonColors.length)];
 
-const shuffleArray = (array: string[]) => {
+export const shuffleArray = (array: string[]) => {
   return [...array].sort(() => Math.random() - 0.5);
 };
-const shuffleArrayforDeleteButton = (array: string[]) => {
+export const shuffleArrayforDeleteButton = (array: string[]) => {
   return [...array].sort(() => Math.random() - 0.5);
 };
 
