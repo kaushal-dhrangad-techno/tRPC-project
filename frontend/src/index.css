@@ -6,3 +6,10 @@
     --radius: 0.5rem;
   }
 }
+@font-face {
+  font-family: "comic-shanns";
+  src: url("/fonts/comic-shanns.otf") format("otf"),
+    url("/fonts/comic-shanns-2.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal;
+}

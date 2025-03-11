@@ -1,113 +1,3 @@
-// const tasks = [
-//   {
-//     _id: "1",
-//     title: "Complete the project report",
-//     description:
-//       "Finalize the project report and submit it by EOD. Finalize the project report and submit it by EOD. Finalize the project report and submit it by EOD.",
-//     completed: false,
-//   },
-//   {
-//     _id: "2",
-//     title: "Review pull requests",
-//     description: "Go through the pending PRs and provide feedback.",
-//     completed: true,
-//   },
-//   {
-//     _id: "3",
-//     title: "Update documentation",
-//     description: "Add missing sections and update outdated information.",
-//     completed: false,
-//   },
-//   {
-//     _id: "4",
-//     title: "Fix UI bugs in dashboard",
-//     description:
-//       "Resolve alignment and responsiveness issues in the dashboard.",
-//     completed: true,
-//   },
-//   {
-//     _id: "5",
-//     title: "Schedule team meeting",
-//     description:
-//       "Set up a meeting with the team to discuss upcoming milestones.Set up a meeting with the team to discuss upcoming milestones.Set up a meeting with the team to discuss upcoming milestones.",
-//     completed: false,
-//   },
-//   {
-//     _id: "5",
-//     title: "Schedule team meeting",
-//     description:
-//       "Set up a meeting with the team to discuss upcoming milestones.",
-//     completed: false,
-//   },
-//   {
-//     _id: "5",
-//     title: "Schedule team meeting",
-//     description:
-//       "Set up a meeting with the team to discuss upcoming milestones.",
-//     completed: false,
-//   },
-//   {
-//     _id: "5",
-//     title: "Schedule team meeting",
-//     description:
-//       "Set up a meeting with the team to discuss upcoming milestones.",
-//     completed: false,
-//   },
-//   {
-//     _id: "1",
-//     title: "Complete the project report",
-//     description: "Finalize the project report and submit it by EOD.",
-//     completed: false,
-//   },
-//   {
-//     _id: "2",
-//     title: "Review pull requests",
-//     description: "Go through the pending PRs and provide feedback.",
-//     completed: true,
-//   },
-//   {
-//     _id: "3",
-//     title: "Update documentation",
-//     description: "Add missing sections and update outdated information.",
-//     completed: false,
-//   },
-//   {
-//     _id: "4",
-//     title: "Fix UI bugs in dashboard",
-//     description:
-//       "Resolve alignment and responsiveness issues in the dashboard.",
-//     completed: true,
-//   },
-//   {
-//     _id: "5",
-//     title: "Schedule team meeting",
-//     description:
-//       "Set up a meeting with the team to discuss upcoming milestones.",
-//     completed: false,
-//   },
-//   {
-//     _id: "5",
-//     title: "Schedule team meeting",
-//     description:
-//       "Set up a meeting with the team to discuss upcoming milestones.",
-//     completed: false,
-//   },
-//   {
-//     _id: "5",
-//     title: "Schedule team meeting",
-//     description:
-//       "Set up a meeting with the team to discuss upcoming milestones.",
-//     completed: false,
-//   },
-//   {
-//     _id: "5",
-//     title: "Schedule team meeting",
-//     description:
-//       "Set up a meeting with the team to discuss upcoming milestones.",
-//     completed: false,
-//   },
-// ];
-
 import { useSelector } from "react-redux";
 
 import { Button } from "../ui/button";
@@ -206,15 +96,19 @@ const Task = () => {
               >
                 <div className="flex flex-col gap-3">
                   <p
-                    className={
+                    className={` font-Comic font-bold text-slate-900 ${
                       task.completed ? "line-through text-gray-600" : ""
-                    }
+                    }`}
                   >
                     Title: {task.title}
                   </p>
-                  <p className={
+                  <p
+                    className={` font-Comic  font-semibold text-slate-900  ${
                       task.completed ? "line-through text-gray-500" : ""
-                    }>Description: {task.description}</p>
+                    }`}
+                  >
+                    Description: {task.description}
+                  </p>
                 </div>
                 <Button
                   onClick={() => handleToggle(task)}
@@ -224,7 +118,7 @@ const Task = () => {
                 </Button>
                 <Button
                   style={{ backgroundColor: deleteButtonBg }}
-                  className="  bg-red-500"
+                  className="  bg-red-500 hover:bg-red-800"
                   onClick={() => deleteTaskMutation.mutate({ _id: task._id })}
                 >
                   Delete
