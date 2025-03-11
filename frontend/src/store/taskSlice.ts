@@ -4,9 +4,10 @@ export interface TaskProps {
   _id: string;
   title: string;
   completed: boolean;
+  description: string
 }
 
-interface TaskState {
+export interface TaskState {
   tasks: TaskProps[];
   loading: boolean;
   error: string | null;

@@ -10,9 +10,10 @@ import {
 } from "./Task";
 import { Button } from "../ui/button";
 import useDeleteTask from "@/trpc-hooks/useDeleteTask";
+import { RootState } from "./ActiveTasks";
 
 const CompletedTasks = () => {
-  const tasks = useSelector((state) => state.tasks?.tasks || []);
+  const tasks = useSelector((state: RootState) => state.tasks?.tasks || []);
   const dispatch = useDispatch();
   const deleteTaskMutation = useDeleteTask();
 
@@ -53,9 +54,14 @@ const CompletedTasks = () => {
 
   return (
     <div className="w-full py-4 ">
-      <h1 className="text-xl flex justify-center font-semibold mb-10">
-        Completed Tasks
-      </h1>
+      <div className="mb-8">
+        <h1 className="text-xl flex justify-center font-semibold ">
+          Completed Tasks
+        </h1>
+        <div className="mt-4 text-sm text-gray-500 flex items-center justify-center">
+          Total completed tasks: {completedTasks.length}
+        </div>
+      </div>
       <div className="w-4/5 flex items-center mx-auto justify-center">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
           {completedTasks.map((task: TaskProps, index: number) => {
@@ -78,7 +84,9 @@ const CompletedTasks = () => {
                   >
                     Title: {task.title}
                   </p>
-                  <p>Description: {task.description}</p>
+                  <p className={
+                      task.completed ? "line-through text-gray-500" : ""
+                    }>Description: {task.description}</p>
                 </div>
                 <Button
                   style={{ backgroundColor: deleteButtonBg }}

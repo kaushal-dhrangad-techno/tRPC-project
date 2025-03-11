@@ -114,7 +114,8 @@ import { Button } from "../ui/button";
 import useFetchAllTask from "@/trpc-hooks/useFetchAllTask";
 import useDeleteTask from "@/trpc-hooks/useDeleteTask";
 import useToggleTask from "@/trpc-hooks/useToggleTask";
-import {  TaskProps } from "@/store/taskSlice";
+import { TaskProps } from "@/store/taskSlice";
+import { RootState } from "./ActiveTasks";
 
 export const notesColors = [
   "#FFF9C4", // Yellow
@@ -160,7 +161,7 @@ const Task = () => {
   );
   const { error, isLoading } = useFetchAllTask();
 
-  const tasks = useSelector((state) => {
+  const tasks = useSelector((state: RootState) => {
     return state.tasks.tasks;
   });
   const deleteTaskMutation = useDeleteTask();
@@ -180,7 +181,15 @@ const Task = () => {
     );
 
   return (
-    <div className="w-full py-10 ">
+    <div className="w-full py-4 ">
+      <div className="mb-8">
+        <h1 className="text-xl flex justify-center font-semibold ">
+          All Tasks
+        </h1>
+        <div className="mt-4 text-sm text-gray-500 flex items-center justify-center">
+          Total tasks: {tasks.length}
+        </div>
+      </div>
       <div className="w-4/5 flex items-center mx-auto justify-center">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
           {tasks.map((task: TaskProps, index: number) => {
@@ -198,12 +207,14 @@ const Task = () => {
                 <div className="flex flex-col gap-3">
                   <p
                     className={
-                      task.completed ? "line-through text-gray-500" : ""
+                      task.completed ? "line-through text-gray-600" : ""
                     }
                   >
                     Title: {task.title}
                   </p>
-                  <p>Description: {task.description}</p>
+                  <p className={
+                      task.completed ? "line-through text-gray-500" : ""
+                    }>Description: {task.description}</p>
                 </div>
                 <Button
                   onClick={() => handleToggle(task)}

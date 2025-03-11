@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { t } from "../trpc";
-import { flushCompileCache } from "module";
 import Task from "../models/task.model";
 import mongoose, { Mongoose } from "mongoose";
 
@@ -21,12 +20,14 @@ export const todoRouter = t.router({
       z.object({
         title: z.string().min(1, "Task is required"),
         completed: z.boolean().default(false),
+        description: z.string().min(1, "Description is required"),
       })
     )
     .mutation(async ({ input }) => {
       const newTask = new Task({
         title: input.title,
         completed: input.completed,
+        description: input.description,
       });
       const saveTask = await newTask.save();
 
@@ -67,9 +68,13 @@ export const todoRouter = t.router({
     .input(z.object({ _id: z.string(), completed: z.boolean() }))
     .mutation(async ({ input }) => {
       const taskId = new mongoose.Types.ObjectId(input._id);
-      const updatedTask = await Task.findByIdAndUpdate(taskId, {
-        completed: input.completed,
-      }, {new: true});
+      const updatedTask = await Task.findByIdAndUpdate(
+        taskId,
+        {
+          completed: input.completed,
+        },
+        { new: true }
+      );
 
       return {
         success: true,

@@ -13,9 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useAddTask from "@/trpc-hooks/useAddTask";
 import { useState } from "react";
+import { Textarea } from "../ui/textarea";
 
 const AddTask = () => {
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const addTaskMutation = useAddTask();
 
@@ -23,7 +25,7 @@ const AddTask = () => {
     if (!title.trim()) return;
     console.log("Task submitted successfully", title);
 
-    addTaskMutation.mutate({ title: title, completed: false });
+    addTaskMutation.mutate({ title: title, description: description, completed: false });
     setTitle("");
   };
 
@@ -56,16 +58,18 @@ const AddTask = () => {
                 className="col-span-3"
               />
             </div>
-            {/* <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Username
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="Description" className="text-right">
+                Description
               </Label>
-              <Input
+              <Textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 id="username"
-                defaultValue="@peduarte"
                 className="col-span-3"
+                placeholder="Enter task description..."
               />
-            </div> */}
+            </div>
           </div>
           <DialogFooter>
             <DialogClose asChild>

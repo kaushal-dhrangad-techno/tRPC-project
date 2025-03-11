@@ -1,7 +1,6 @@
 import { Outlet } from "react-router";
 import Navbar from "./Navbar";
 import AddTask from "./AddTask";
-import { useDispatch } from "react-redux";
 
 const Layout = () => {
 
