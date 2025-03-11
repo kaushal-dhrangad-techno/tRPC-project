@@ -1,14 +1,15 @@
-import AddTask from "./AddTask";
-import Task from "./Task";
+import { Outlet } from "react-router";
 import Navbar from "./Navbar";
+import AddTask from "./AddTask";
+import { useDispatch } from "react-redux";
 
 const Layout = () => {
+
   return (
     <>
-      {/* <div className="flex h-screen flex-col gap-10 pt-16 justify-center"> */}
       <Navbar />
       <AddTask />
-      <Task />
+      <Outlet /> {/* This will render the component for the current route */}
     </>
   );
 };

@@ -113,8 +113,8 @@ import { useSelector } from "react-redux";
 import { Button } from "../ui/button";
 import useFetchAllTask from "@/trpc-hooks/useFetchAllTask";
 import useDeleteTask from "@/trpc-hooks/useDeleteTask";
-import { useState } from "react";
 import useToggleTask from "@/trpc-hooks/useToggleTask";
+import {  TaskProps } from "@/store/taskSlice";
 
 const notesColors = [
   "#FFF9C4", // Yellow
@@ -152,10 +152,7 @@ const shuffleArrayforDeleteButton = (array: string[]) => {
   return [...array].sort(() => Math.random() - 0.5);
 };
 
-// console.log("This is random number", Math.random() - 0.5);
-
 const Task = () => {
-  const [toggle, setToggle] = useState(false);
   //For Shuffle colors
   const shuffledColors = shuffleArray(Object.values(notesColors));
   const shuffledDeleteButtonColors = shuffleArrayforDeleteButton(
@@ -186,7 +183,7 @@ const Task = () => {
     <div className="w-full py-10 ">
       <div className="w-4/5 flex items-center mx-auto justify-center">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
-          {tasks.map((task, index) => {
+          {tasks.map((task: TaskProps, index: number) => {
             const bgColor = shuffledColors[index % shuffledColors.length];
             const deleteButtonBg =
               shuffledDeleteButtonColors[
